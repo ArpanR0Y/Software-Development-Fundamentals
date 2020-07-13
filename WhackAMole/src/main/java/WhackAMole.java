@@ -56,7 +56,7 @@ public class WhackAMole {
   public void printGrid() {
     for (char[] row : moleGrid) {
       for (char element : row) {
-        System.out.print(" "+element+" ");
+        System.out.print(" " + element + " ");
       }
       System.out.println();
     }
