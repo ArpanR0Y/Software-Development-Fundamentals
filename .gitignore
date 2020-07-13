@@ -1,6 +1,6 @@
 .gradle
 /build/
-/Practice/
+WhackAMole/out/
 
 # Ignore Gradle GUI config
 gradle-app.setting
