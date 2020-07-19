@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Squarelotron {
 
   int[][] squarelotron;
@@ -14,17 +16,55 @@ public class Squarelotron {
     }
   }
 
-  public Squarelotron upsideDownFlip(int ring) {
+  public ArrayList<Integer> getRing(int ringNo) {
+    ArrayList<Integer> ring = new ArrayList<>();
+
+    int ringPos = ringNo - 1;
+
+    for (int row = ringPos; row < size - ringPos; row++) {
+      for (int column = ringPos; column < size - ringPos; column++) {
+        if (row == ringPos) {
+          ring.add(squarelotron[row][column]);
+        } else if (row == size - 1 - ringPos) {
+          ring.add(squarelotron[row][column]);
+        } else if (column == ringPos) {
+          ring.add(squarelotron[row][column]);
+        } else if (column == size - 1 - ringPos) {
+          ring.add(squarelotron[row][column]);
+        }
+      }
+    }
+
+    return ring;
+  }
+
+  public Squarelotron upsideDownFlip(int ringNo) {
     Squarelotron matrix = new Squarelotron(size);
-    //TODO: This method performs the Upside-Down Flip of the squarelotron, and returns a
-    // new squarelotron. The original squarelotron should not be modified
+
+      ArrayList<Integer> ring = matrix.getRing(ringNo);
+
+      for (int row = 0; row < size; row++) {
+        for (int column = 0; column < size; column++) {
+          if (ring.contains(matrix.squarelotron[row][column])) {
+            matrix.squarelotron[row][column] = this.squarelotron[size - 1 - row][column];
+          }
+        }
+      }
     return matrix;
   }
 
-  public Squarelotron mainDiagonalFlip(int ring) {
+  public Squarelotron mainDiagonalFlip(int ringNo) {
     Squarelotron matrix = new Squarelotron(size);
-    //TODO: This method performs the Main Diagonal Flip of the squarelotron, and returns a
-    // new squarelotron. The original squarelotron should not be modified
+
+    ArrayList<Integer> ring = matrix.getRing(ringNo);
+
+    for (int row = 0; row < size; row++) {
+      for (int column = 0; column < size; column++) {
+        if (ring.contains(matrix.squarelotron[row][column])) {
+          matrix.squarelotron[row][column] = this.squarelotron[column][row];
+        }
+      }
+    }
     return matrix;
   }
 
