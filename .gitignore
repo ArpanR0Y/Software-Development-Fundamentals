@@ -1,6 +1,7 @@
 .gradle
+.idea
 /build/
-WhackAMole/out/
+*/out/
 
 # Ignore Gradle GUI config
 gradle-app.setting
