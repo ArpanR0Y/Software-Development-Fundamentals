@@ -82,4 +82,18 @@ public class SquarelotronTest {
     assertArrayEquals(expectedSquarlotron, actualSquarlotron.squarelotron);
   }
 
+  @Test
+  public void testRotateRightClockwise() {
+    int[][] expectedSquarlotron = {{13, 9, 5, 1}, {14, 10, 6, 2}, {15, 11, 7, 3}, {16, 12, 8, 4}};
+    matrix.rotateRight(1);
+    assertArrayEquals(expectedSquarlotron, matrix.squarelotron);
+  }
+
+  @Test
+  public void testRotateRightAntiClockwise() {
+    int[][] expectedSquarlotron = {{4, 8, 12, 16}, {3, 7, 11, 15}, {2, 6, 10, 14}, {1, 5, 9, 13}};
+    matrix.rotateRight(-1);
+    assertArrayEquals(expectedSquarlotron, matrix.squarelotron);
+  }
+
 }
