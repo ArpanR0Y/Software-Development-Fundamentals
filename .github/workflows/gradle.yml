@@ -21,6 +21,8 @@ jobs:
       with:
         java-version: 1.8
     - name: WhackAMole - Grant execute permission for gradlew
-      run: chmod +x ./WhackAMole/gradlew
+      run: chmod +x ./gradlew
+      working-directory: ./WhackAMole
     - name: WhackAMole - Build with Gradle
-      run: ./WhackAMole/gradlew ./WhackAMole/build
+      run: ./gradlew build
+      working-directory: ./WhackAMole
