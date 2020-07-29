@@ -26,3 +26,15 @@ jobs:
     - name: WhackAMole - Build with Gradle
       run: ./gradlew build
       working-directory: ./WhackAMole
+    - name: Squarelotron - Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      working-directory: ./Squarelotron
+    - name: Squarelotron - Build with Gradle
+      run: ./gradlew build
+      working-directory: ./Squarelotron
+    - name: MovieDatabase - Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      working-directory: ./MovieDatabase
+    - name: MovieDatabase - Build with Gradle
+      run: ./gradlew build
+      working-directory: ./MovieDatabase
