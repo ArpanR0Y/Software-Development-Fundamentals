@@ -108,6 +108,7 @@ public class MovieDatabase {
 //        highestRating = movie.getRating();
 //      }
 //    }
+    
     return bestMovie;
   }
 
