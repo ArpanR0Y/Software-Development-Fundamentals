@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Movie {
+
   private String name;
   private ArrayList<Actor> actors;
   private double rating;

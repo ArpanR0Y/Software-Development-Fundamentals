@@ -29,10 +29,17 @@ public class MovieDatabase {
    * @param actors Name of the actor to be added.
    */
   public void addMovie(String name, String[] actors) {
-    for (Movie movie : movieList) {
-      if (!movie.getName().equalsIgnoreCase(name)) {
-        Movie newMovie = new Movie(name, actors);
-        movieList.add(newMovie);
+    if (movieList.isEmpty() || movieList.stream()
+        .noneMatch(movie -> movie.getName().equals(name))) {
+      Movie newMovie = new Movie(name, actors);
+      movieList.add(newMovie);
+      for (String actor : actors) {
+        if (actorList.stream().noneMatch(actor1 -> actor1.getName().equals(actor))) {
+          Actor newActor = new Actor();
+          newActor.setName(actor);
+          newActor.setMovies(newMovie);
+          actorList.add(newActor);
+        }
       }
     }
   }
@@ -45,7 +52,11 @@ public class MovieDatabase {
    * @param rating Rating for the movie to be added.
    */
   public void addRating(String name, double rating) {
-
+    for (Movie movie : movieList) {
+      if (movie.getName().equals(name)) {
+        movie.setRating(rating);
+      }
+    }
   }
 
   /**
@@ -56,7 +67,7 @@ public class MovieDatabase {
    * @param newRating New rating for the movie, overriding the existing one.
    */
   public void updateRating(String name, double newRating) {
-
+    addRating(name, newRating);
   }
 
   /**
@@ -65,7 +76,22 @@ public class MovieDatabase {
    * @return The name of the best actor based on the movie ratings.
    */
   public String getBestActor() {
-    return "Actor";
+    double maxRating = 0.0;
+    String bestActor = "";
+    for (Actor actor : actorList) {
+      double sumRating = 0.0;
+      ArrayList<Movie> actorMovies = actor.getMovies();
+      for (Movie movie : actorMovies) {
+        sumRating += movie.getRating();
+      }
+      double avgRating = sumRating / actorMovies.size();
+      if (avgRating > maxRating) {
+        maxRating = avgRating;
+        bestActor = actor.getName();
+      }
+    }
+
+    return bestActor;
   }
 
   /**
@@ -74,7 +100,15 @@ public class MovieDatabase {
    * @return The name of the highest rated movie.
    */
   public String getBestMovie() {
-    return "bestMovie";
+    String bestMovie = "";
+    double highestRating = 0.0;
+    for (Movie movie : movieList) {
+      if (movie.getRating() > highestRating) {
+        bestMovie = movie.getName();
+        highestRating = movie.getRating();
+      }
+    }
+    return bestMovie;
   }
 
   public static void main(String[] args) {
@@ -85,6 +119,4 @@ public class MovieDatabase {
     //      4. Now call the methods that you created and print out the name of the best actor and the
     //         name of the highest rated movie.
   }
-
-
 }

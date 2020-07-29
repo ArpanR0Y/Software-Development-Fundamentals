@@ -1,8 +1,14 @@
 import java.util.ArrayList;
 
 public class Actor {
+
   private String name;
   private ArrayList<Movie> movies;
+
+  public Actor() {
+    this.name = "";
+    this.movies = new ArrayList<>();
+  }
 
   public String getName() {
     return name;
@@ -16,7 +22,7 @@ public class Actor {
     return movies;
   }
 
-  public void setMovies(ArrayList<Movie> movies) {
-    this.movies = movies;
+  public void setMovies(Movie movie) {
+    this.movies.add(movie);
   }
 }
