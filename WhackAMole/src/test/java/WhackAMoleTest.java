@@ -16,7 +16,7 @@ public class WhackAMoleTest {
 
   @Test
   public void testConstructorNumOfAttempts() {
-    int expected = 5;
+    int expected = 2;
     int actual = whack.attemptsLeft;
     assertEquals("Expected number of attempts: " + expected + ", but actual: " + actual, expected,
         actual);
