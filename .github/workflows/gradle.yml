@@ -21,7 +21,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Give all modules permissions
-      run: chmod -R 755 / 
+      run: chmod -R 755 ./ 
     - name: Test-WhackAMole 
       run: cd ./WhackAMole
     - name: Build with Gradle
