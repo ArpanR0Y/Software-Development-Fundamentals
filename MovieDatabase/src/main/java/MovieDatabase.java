@@ -101,13 +101,13 @@ public class MovieDatabase {
    */
   public String getBestMovie() {
     String bestMovie = "";
-    double highestRating = 0.0;
-    for (Movie movie : movieList) {
-      if (movie.getRating() > highestRating) {
-        bestMovie = movie.getName();
-        highestRating = movie.getRating();
-      }
-    }
+//    double highestRating = 0.0;
+//    for (Movie movie : movieList) {
+//      if (movie.getRating() > highestRating) {
+//        bestMovie = movie.getName();
+//        highestRating = movie.getRating();
+//      }
+//    }
     return bestMovie;
   }
 
