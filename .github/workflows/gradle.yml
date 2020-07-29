@@ -23,4 +23,4 @@ jobs:
     - name: WhackAMole - Grant execute permission for gradlew
       run: chmod +x ./WhackAMole/gradlew
     - name: WhackAMole - Build with Gradle
-      run: ./WhackAMole/gradlew build
+      run: ./WhackAMole/gradlew test
