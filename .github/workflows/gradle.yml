@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  test-WhackAMole:
 
     runs-on: ubuntu-latest
 
@@ -20,21 +20,43 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: WhackAMole - Grant execute permission for gradlew
+    - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
       working-directory: ./WhackAMole
-    - name: WhackAMole - Build with Gradle
+    - name: Unit Tests
       run: ./gradlew build
       working-directory: ./WhackAMole
-    - name: Squarelotron - Grant execute permission for gradlew
+
+  test-Squarelotron:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
       working-directory: ./Squarelotron
-    - name: Squarelotron - Build with Gradle
+    - name: Unit Tests
       run: ./gradlew build
       working-directory: ./Squarelotron
-    - name: MovieDatabase - Grant execute permission for gradlew
+
+  test-MovieDatabase:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
       working-directory: ./MovieDatabase
-    - name: MovieDatabase - Build with Gradle
+    - name: Unit Tests
       run: ./gradlew build
       working-directory: ./MovieDatabase
