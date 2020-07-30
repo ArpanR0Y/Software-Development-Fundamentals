@@ -24,7 +24,7 @@ jobs:
       run: chmod +x ./gradlew
       working-directory: ./WhackAMole
     - name: Unit Tests
-      run: ./gradlew build
+      run: ./gradlew test
       working-directory: ./WhackAMole
 
   test-Squarelotron:
@@ -41,7 +41,7 @@ jobs:
       run: chmod +x ./gradlew
       working-directory: ./Squarelotron
     - name: Unit Tests
-      run: ./gradlew build
+      run: ./gradlew test
       working-directory: ./Squarelotron
 
   test-MovieDatabase:
@@ -58,5 +58,5 @@ jobs:
       run: chmod +x ./gradlew
       working-directory: ./MovieDatabase
     - name: Unit Tests
-      run: ./gradlew build
+      run: ./gradlew test
       working-directory: ./MovieDatabase
