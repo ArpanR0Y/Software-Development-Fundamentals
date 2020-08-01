@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +17,10 @@ public class MovieDatabaseTest {
 
   @Test
   public void testMovieDatabase() {
-    assertTrue(db.getActorList() != null);
-    assertTrue(db.getMovieList() != null);
-    assertTrue(db.getActorList().size() == 0);
-    assertTrue(db.getMovieList().size() == 0);
+    assertNotNull(db.getActorList());
+    assertNotNull(db.getMovieList());
+    assertEquals(0, db.getActorList().size());
+    assertEquals(0, db.getMovieList().size());
   }
 
   @Test
@@ -30,7 +32,7 @@ public class MovieDatabaseTest {
         return;
       }
     }
-    assertTrue(false);
+    fail();
   }
 
   @Test
@@ -42,14 +44,14 @@ public class MovieDatabaseTest {
         return;
       }
     }
-    assertTrue(false);
+    fail();
   }
 
   @Test
   public void testAddMovieAlreadyExist() {
     db.addMovie("dummy", new String[]{});
     db.addMovie("dummy", new String[]{});
-    assertTrue(db.getMovieList().size() == 1);
+    assertEquals(1, db.getMovieList().size());
   }
 
   @Test
@@ -58,7 +60,7 @@ public class MovieDatabaseTest {
     a.setName("bla");
     db.getActorList().add(a);
     db.addMovie("life", new String[]{"bla"});
-    assertTrue(db.getActorList().size() == 1);
+    assertEquals(1, db.getActorList().size());
   }
 
   @Test

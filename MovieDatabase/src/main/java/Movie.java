@@ -6,6 +6,12 @@ public class Movie {
   private ArrayList<Actor> actors;
   private double rating;
 
+  public Movie(String name, double rating) {
+    this.name = name;
+    this.rating = rating;
+    this.actors = new ArrayList<>();
+  }
+
   public Movie(String name, String[] actors) {
     this.name = name;
     this.actors = new ArrayList<>();
@@ -17,19 +23,15 @@ public class Movie {
   }
 
   public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
+    return name.trim();
   }
 
   public ArrayList<Actor> getActors() {
     return actors;
   }
 
-  public void setActors(ArrayList<Actor> actors) {
-    this.actors = actors;
+  public void setActors(Actor actor) {
+    this.actors.add(actor);
   }
 
   public double getRating() {
