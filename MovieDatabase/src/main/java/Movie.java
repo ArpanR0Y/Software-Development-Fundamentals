@@ -6,10 +6,6 @@ public class Movie {
   private ArrayList<Actor> actors;
   private double rating;
 
-  public Movie(String name) {
-    this.name = name;
-  }
-
   public Movie(String name, double rating) {
     this.name = name;
     this.rating = rating;
