@@ -1,4 +1,3 @@
-movie_name	critic_score
 Original Sin	12
 Assassins	16
 Wild Wild West	17

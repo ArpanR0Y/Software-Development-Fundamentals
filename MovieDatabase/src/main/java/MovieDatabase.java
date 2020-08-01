@@ -1,4 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MovieDatabase {
 
@@ -111,12 +117,102 @@ public class MovieDatabase {
     return bestMovie;
   }
 
-  public static void main(String[] args) {
+  /**
+   * This method takes in the movieDatabase object and populates its list of actors with the name
+   * of the actors and the name of the movies they have acted in from the csv dataset
+   * @throws FileNotFoundException Throws exception when dataset is not found in the resources.
+   */
+  public void actorDataLoader() throws FileNotFoundException {
+
+    String projectPath = Paths.get(".").normalize().toAbsolutePath().toString();
+    Scanner sc = new Scanner(new File(projectPath + "\\src\\main\\resources\\movies.txt"));
+
+    while (sc.hasNext()) {
+      String line = sc.nextLine();
+
+      String actor = line.substring(0, line.indexOf(","));
+      String movies = line.substring(line.indexOf(",") + 1);
+
+      //Create a new Actor object
+      Actor newActor = new Actor();
+      newActor.setName(actor);
+
+      //Add all the movies the actor has acted in Actor.movies
+      String[] movieArr = movies.split(",");
+
+      for (String movie : movieArr) {
+        Movie newMovie = new Movie(movie);
+        newActor.setMovies(newMovie);
+      }
+
+      this.actorList.add(newActor);
+    }
+    sc.close();
+  }
+
+  /**
+   * This method takes in the movieDatabase object and populates its list of movies name, ratings and
+   * the name of the actors from the dataset.
+   * @throws FileNotFoundException Throws exception when dataset is not found in the resources.
+   */
+  public void movieDataLoader() throws FileNotFoundException {
+
+    String projectPath = Paths.get(".").normalize().toAbsolutePath().toString();
+    Scanner sc = new Scanner(new File(projectPath + "\\src\\main\\resources\\ratings.txt"));
+
+    /*
+    Regex pattern to separate the name of the movie from the ratings
+    1st group - Captures everything 1 or more times
+    2nd group - Captures a whitespace and 2 or more digits at the end of the string
+     */
+    String regex = "(.+)(\\t+\\d{2,}$)";
+    Pattern pattern = Pattern.compile(regex);
+
+    while (sc.hasNext()) {
+      String line = sc.nextLine();
+      Matcher matcher = pattern.matcher(line);
+      String movieName = "";
+      double rating = 0.0;
+
+      if (matcher.find()) {
+        movieName = matcher.group(1);
+        rating = Double.parseDouble(matcher.group(2));
+      }
+
+      //Create a new Movie object
+      Movie movie = new Movie(movieName, rating);
+
+      for (Actor actor : actorList) {
+        String finalMovieName = movieName;
+        if (actor.getMovies().stream().anyMatch(actorMovie -> actorMovie.getName().equals(finalMovieName))) {
+          movie.setActors(actor);
+        }
+      }
+
+      this.movieList.add(movie);
+    }
+    sc.close();
+  }
+
+  public static void main(String[] args) throws FileNotFoundException {
     //TODO: 1. You create a new instance of a movieDatabase.
     //      2. Add all the movies in the file movies.txt.
     //      3. Go through the ratings of the movies in the file ratings.txt and add the ratings for
     //         the movies.
     //      4. Now call the methods that you created and print out the name of the best actor and the
     //         name of the highest rated movie.
+    MovieDatabase movieDatabase = new MovieDatabase();
+    movieDatabase.actorDataLoader();
+    movieDatabase.movieDataLoader();
+
+    int n = 0;
+    while (n < 10) {
+//      Actor actor = movieDatabase.actorList.get(n);
+      Movie movie = movieDatabase.movieList.get(n);
+      System.out.println("Movie Name: " + movie.getName());
+      System.out.println("Movie Actor: " + movie.getActors().get(0).getName());
+      System.out.println("Movie Rating: " + movie.getRating());
+      n++;
+    }
   }
 }
