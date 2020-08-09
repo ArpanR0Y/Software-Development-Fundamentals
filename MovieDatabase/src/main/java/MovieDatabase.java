@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 public class MovieDatabase {
 
-  private ArrayList<Movie> movieList;
-  private ArrayList<Actor> actorList;
+  private final ArrayList<Movie> movieList;
+  private final ArrayList<Actor> actorList;
 
   public MovieDatabase() {
     this.movieList = new ArrayList<>();
@@ -215,11 +215,13 @@ public class MovieDatabase {
     int n = 0;
     while (n < this.movieList.size()) {
       Movie movie = this.movieList.get(n);
+      System.out.println("------------------------------");
       System.out.println("Movie Name: " + movie.getName());
       for (int i = 0; i < movie.getActors().size(); i++) {
         System.out.println("Movie Actor" + (i + 1) + ":" + movie.getActors().get(i).getName());
       }
       System.out.println("Movie Rating: " + movie.getRating());
+      System.out.println("------------------------------");
       n++;
     }
   }

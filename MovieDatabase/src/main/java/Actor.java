@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Actor {
 
   private String name;
-  private ArrayList<Movie> movies;
+  private final ArrayList<Movie> movies;
 
   public Actor() {
     this.name = "";
