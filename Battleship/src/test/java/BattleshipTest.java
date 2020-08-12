@@ -60,26 +60,26 @@ public class BattleshipTest {
 //    assertEquals("empty", emptySea.getShipType());
   }
 
-//  @Test
-//  public void testOkToPlaceShipAt() {
-//    assertTrue("This battleship should have been ok to place",
-//        battleship.okToPlaceShipAt(11, 0, true, ocean1));
-//    assertFalse("Diagonal adjacency is not allowed",
-//        destroyer.okToPlaceShipAt(1, 4, true, ocean1)); // diagonally
-//    // touch
-//    assertTrue(destroyer.okToPlaceShipAt(0, 1, true, ocean1));
-//    assertFalse("Two ships cannot overlap",
-//        destroyer.okToPlaceShipAt(2, 2, true, ocean1)); // overlap
-//    assertFalse("Two ships cannot touch each other vertically",
-//        destroyer.okToPlaceShipAt(10, 3, false, ocean1)); // vertically
-//    // touch
-//    assertFalse("Placed a ship that stuck out of the ocean",
-//        cruiser.okToPlaceShipAt(0, 18, true, ocean1)); // stick
-//    // out
-//    assertFalse("Two ships cannot touch each other horizontally",
-//        submarine.okToPlaceShipAt(2, 4, true, ocean1)); // horizontally
-//    // touch
-//  }
+  @Test
+  public void testOkToPlaceShipAt() {
+    assertTrue("This battleship should have been ok to place",
+        battleship.okToPlaceShipAt(11, 0, true, ocean1));
+    assertFalse("Diagonal adjacency is not allowed",
+        destroyer.okToPlaceShipAt(1, 4, true, ocean1)); // diagonally
+    // touch
+    assertTrue(destroyer.okToPlaceShipAt(0, 1, true, ocean1));
+    assertFalse("Two ships cannot overlap",
+        destroyer.okToPlaceShipAt(2, 2, true, ocean1)); // overlap
+    assertFalse("Two ships cannot touch each other vertically",
+        destroyer.okToPlaceShipAt(10, 3, false, ocean1)); // vertically
+    // touch
+    assertFalse("Placed a ship that stuck out of the ocean",
+        cruiser.okToPlaceShipAt(0, 18, true, ocean1)); // stick
+    // out
+    assertFalse("Two ships cannot touch each other horizontally",
+        submarine.okToPlaceShipAt(2, 4, true, ocean1)); // horizontally
+    // touch
+  }
 
   @Test
   public void testPlaceShipAt() {

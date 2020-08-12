@@ -57,24 +57,32 @@ public abstract class Ship {
    */
   boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean) {
     if (horizontal) {
-      try {
-        for (int c = column; c < column + length; c++) {
-          if (ocean.isOccupied(row, c)) {
-            return false;
-          }
-        }
-      } catch (ArrayIndexOutOfBoundsException e) {
+      if (column + length > 20) {
         return false;
       }
-    } else {
-      try {
-        for (int r = row; r < row + length; r++) {
-          if (ocean.isOccupied(r, column)) {
-            return false;
+      for (int r = row - 1; r < row + 2; r++) {
+        for (int c = column - 1; c < column + length + 1; c++) {
+          try {
+            if (ocean.isOccupied(r, c)) {
+              return false;
+            }
+          } catch (ArrayIndexOutOfBoundsException ignored) {
           }
         }
-      } catch (ArrayIndexOutOfBoundsException e) {
+      }
+    } else {
+      if (row + length > 20) {
         return false;
+      }
+      for (int r = row - 1; r < row + length + 1; r++) {
+        for (int c = column - 1; c < column + 2; c++) {
+          try {
+            if (ocean.isOccupied(r, c)) {
+              return false;
+            }
+          } catch (ArrayIndexOutOfBoundsException ignored) {
+          }
+        }
       }
     }
     return true;
@@ -108,19 +116,19 @@ public abstract class Ship {
   }
 
   /**
-   * If a part of the ship occupies the given row and column, and the ship hasn’t been sunk, mark
+   * If a part of the ship occupies the given row and column, and the ship hasn't been sunk, mark
    * that part of the ship as ”hit” (in the hit array, 0 indicates the bow) and return true,
    * otherwise return false.
    */
   boolean shootAt(int row, int column) {
-    return true;
+    return true; //TODO: Implement correctly.
   }
 
   /**
    * Return true if every part of the ship has been hit, false otherwise.
    */
   boolean isSunk() {
-    return true;
+    return true; //TODO: Implement correctly.
   }
 
   /**
@@ -137,10 +145,9 @@ public abstract class Ship {
    * implementation. In order to figure out what needs to be done, please see the description of the
    * print method in the Ocean class.
    *
-   * @return
    */
   @Override
   public String toString() {
-    return "S";
+    return "S"; //TODO: Implement correctly.
   }
 }
