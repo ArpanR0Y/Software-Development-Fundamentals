@@ -10,16 +10,8 @@ public abstract class Ship {
     return bowRow;
   }
 
-  public void setBowRow(int bowRow) {
-    this.bowRow = bowRow;
-  }
-
   public int getBowColumn() {
     return bowColumn;
-  }
-
-  public void setBowColumn(int bowColumn) {
-    this.bowColumn = bowColumn;
   }
 
   public int getLength() {
@@ -32,10 +24,6 @@ public abstract class Ship {
 
   public boolean isHorizontal() {
     return horizontal;
-  }
-
-  public void setHorizontal(boolean horizontal) {
-    this.horizontal = horizontal;
   }
 
   public boolean[] getHit() {
@@ -121,14 +109,32 @@ public abstract class Ship {
    * otherwise return false.
    */
   boolean shootAt(int row, int column) {
-    return true; //TODO: Implement correctly.
+    try {
+      //get the distance between bow and hit location; D = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+      int hitLocation = (int) Math.sqrt(Math.pow((row - this.bowRow), 2) +
+          Math.pow((column - this.bowColumn), 2));
+
+      if (!this.isSunk()) {
+        this.hit[hitLocation] = true;
+        return true;
+      } else {
+        return false;
+      }
+    } catch (ArrayIndexOutOfBoundsException e) {
+      return false;
+    }
   }
 
   /**
    * Return true if every part of the ship has been hit, false otherwise.
    */
   boolean isSunk() {
-    return true; //TODO: Implement correctly.
+    for (boolean isHit : hit) {
+      if (!isHit) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -144,10 +150,13 @@ public abstract class Ship {
    * Note that the toString method for the EmptySea class has to override the Ship class's
    * implementation. In order to figure out what needs to be done, please see the description of the
    * print method in the Ocean class.
-   *
    */
   @Override
   public String toString() {
-    return "S"; //TODO: Implement correctly.
+    if (this.isSunk()) {
+      return "x";
+    } else {
+      return "S";
+    }
   }
 }
