@@ -23,7 +23,7 @@ public class BattleshipTest {
     cruiser = new Cruiser();
     destroyer = new Destroyer();
     submarine = new Submarine();
-//    emptySea = new EmptySea();
+    emptySea = new EmptySea();
     ocean1 = new Ocean();
     for (int i = 2; i < 10; i++) {
       ocean1.getShipArray()[i][3] = battleship;
@@ -47,7 +47,7 @@ public class BattleshipTest {
     assertEquals(6, cruiser.getLength());
     assertEquals(4, destroyer.getLength());
     assertEquals(3, submarine.getLength());
-//    assertTrue(emptySea.getLength() == 1);
+    assertEquals(1, emptySea.getLength());
   }
 
   @Test
@@ -56,8 +56,8 @@ public class BattleshipTest {
     assertEquals("cruiser", cruiser.getShipType());
     assertEquals("destroyer", destroyer.getShipType());
     assertEquals("submarine", submarine.getShipType());
-//    assertTrue(emptySea.getShipType().equals("empty"));
-//    assertEquals("empty", emptySea.getShipType());
+    assertEquals("empty", emptySea.getShipType());
+    assertEquals("empty", emptySea.getShipType());
   }
 
   @Test
@@ -111,65 +111,64 @@ public class BattleshipTest {
     submarine.placeShipAt(0, 0, true, ocean1);
     assertEquals("submarine", ocean1.getShipArray()[0][0].getShipType());
   }
-//
-//  @Test
-//  public void testShootAt() {
-//    assertFalse(battleship.shootAt(7, 7)); // miss
-//    assertFalse(battleship.getHit()[0]);
-//    battleship.placeShipAt(2, 3, false, ocean1);
-//    assertTrue(battleship.shootAt(2, 3)); // shoot battleship bow
-//    assertTrue(battleship.getHit()[0]);
-//    assertFalse(battleship.getHit()[2]);
-//    assertTrue(battleship.shootAt(4, 3)); // shoot battleship body
-//    assertTrue(battleship.getHit()[2]);
-//    assertTrue(battleship.shootAt(2, 3)); // shoot same spot before
-//    // sinking
-//    assertTrue(battleship.shootAt(3, 3)); // shoot battleship body
-//    assertTrue(battleship.shootAt(5, 3)); // shoot battleship stern
-//    assertTrue(battleship.shootAt(6, 3));
-//    assertTrue(battleship.shootAt(7, 3));
-//    assertTrue(battleship.shootAt(8, 3));
-//    assertTrue(battleship.shootAt(9, 3));
-//    assertFalse("shooting the same spot after sinking should return false",
-//        battleship.shootAt(2, 3));
-//    assertFalse(battleship.shootAt(8, 8)); // miss
-//
-//    submarine.placeShipAt(0, 0, false, ocean1);
-//    assertTrue(submarine.shootAt(0, 0));
-//    assertTrue(submarine.getHit()[0]);
-//
-//    emptySea.placeShipAt(9, 9, false, ocean1);
-//    assertFalse(emptySea.getHit()[0]);
-//    assertFalse(emptySea.shootAt(9, 9));
-//    assertTrue(submarine.getHit()[0]);
-//    assertFalse(emptySea.shootAt(9, 9));
-//
-//    EmptySea anotherEmptySea = new EmptySea();
-//    anotherEmptySea.placeShipAt(8, 8, true, ocean1);
-//    assertFalse(anotherEmptySea.getHit()[0]);
-//    assertFalse(anotherEmptySea.shootAt(8, 8));
-//    // assertTrue(anotherEmptySea.hit[0]);
-//  }
-//
-//  @Test
-//  public void testIsSunk() {
-//    destroyer.placeShipAt(2, 3, false, ocean1);
-//    assertFalse(destroyer.isSunk());
-//    destroyer.shootAt(2, 3);
-//    assertFalse(destroyer.isSunk());
-//    destroyer.shootAt(3, 3);
-//    assertFalse(destroyer.isSunk());
-//    destroyer.shootAt(4, 3);
-//    assertFalse(destroyer.isSunk());
-//    destroyer.shootAt(5, 3);
-//    assertTrue(destroyer.isSunk());
-//
-//    submarine.placeShipAt(0, 0, false, ocean1);
-//    assertFalse(submarine.isSunk());
-//    submarine.shootAt(0, 0);
-//    assertFalse(submarine.isSunk());
-//  }
-//
+
+  @Test
+  public void testShootAt() {
+    assertFalse(battleship.shootAt(7, 7)); // miss
+    assertFalse(battleship.getHit()[0]);
+    battleship.placeShipAt(2, 3, false, ocean1);
+    assertTrue(battleship.shootAt(2, 3)); // shoot battleship bow
+    assertTrue(battleship.getHit()[0]);
+    assertFalse(battleship.getHit()[2]);
+    assertTrue(battleship.shootAt(4, 3)); // shoot battleship body
+    assertTrue(battleship.getHit()[2]);
+    assertTrue(battleship.shootAt(2, 3)); // shoot same spot before
+    // sinking
+    assertTrue(battleship.shootAt(3, 3)); // shoot battleship body
+    assertTrue(battleship.shootAt(5, 3)); // shoot battleship stern
+    assertTrue(battleship.shootAt(6, 3));
+    assertTrue(battleship.shootAt(7, 3));
+    assertTrue(battleship.shootAt(8, 3));
+    assertTrue(battleship.shootAt(9, 3));
+    assertFalse("shooting the same spot after sinking should return false",
+        battleship.shootAt(2, 3));
+    assertFalse(battleship.shootAt(8, 8)); // miss
+
+    submarine.placeShipAt(0, 0, false, ocean1);
+    assertTrue(submarine.shootAt(0, 0));
+    assertTrue(submarine.getHit()[0]);
+
+    emptySea.placeShipAt(9, 9, false, ocean1);
+    assertFalse(emptySea.getHit()[0]);
+    assertFalse(emptySea.shootAt(9, 9));
+    assertTrue(submarine.getHit()[0]);
+    assertFalse(emptySea.shootAt(9, 9));
+
+    EmptySea anotherEmptySea = new EmptySea();
+    anotherEmptySea.placeShipAt(8, 8, true, ocean1);
+    assertFalse(anotherEmptySea.getHit()[0]);
+    assertFalse(anotherEmptySea.shootAt(8, 8));
+  }
+
+  @Test
+  public void testIsSunk() {
+    destroyer.placeShipAt(2, 3, false, ocean1);
+    assertFalse(destroyer.isSunk());
+    destroyer.shootAt(2, 3);
+    assertFalse(destroyer.isSunk());
+    destroyer.shootAt(3, 3);
+    assertFalse(destroyer.isSunk());
+    destroyer.shootAt(4, 3);
+    assertFalse(destroyer.isSunk());
+    destroyer.shootAt(5, 3);
+    assertTrue(destroyer.isSunk());
+
+    submarine.placeShipAt(0, 0, false, ocean1);
+    assertFalse(submarine.isSunk());
+    submarine.shootAt(0, 0);
+    assertFalse(submarine.isSunk());
+  }
+
 //  @Test
 //  public void testToString() {
 //    battleship.placeShipAt(2, 3, false, ocean1);
@@ -188,7 +187,7 @@ public class BattleshipTest {
 //    battleship.shootAt(9, 3);
 //    assertEquals("x", battleship.toString());
 //  }
-//
+
 //  @Test
 //  public void testShipSubclasses() {
 //
