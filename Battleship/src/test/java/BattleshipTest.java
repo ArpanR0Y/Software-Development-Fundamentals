@@ -23,7 +23,7 @@ public class BattleshipTest {
     cruiser = new Cruiser();
     destroyer = new Destroyer();
     submarine = new Submarine();
-//    emptySea = new EmptySea();
+    emptySea = new EmptySea();
     ocean1 = new Ocean();
     for (int i = 2; i < 10; i++) {
       ocean1.getShipArray()[i][3] = battleship;
@@ -47,7 +47,7 @@ public class BattleshipTest {
     assertEquals(6, cruiser.getLength());
     assertEquals(4, destroyer.getLength());
     assertEquals(3, submarine.getLength());
-//    assertTrue(emptySea.getLength() == 1);
+    assertEquals(1, emptySea.getLength());
   }
 
   @Test
@@ -56,8 +56,8 @@ public class BattleshipTest {
     assertEquals("cruiser", cruiser.getShipType());
     assertEquals("destroyer", destroyer.getShipType());
     assertEquals("submarine", submarine.getShipType());
-//    assertTrue(emptySea.getShipType().equals("empty"));
-//    assertEquals("empty", emptySea.getShipType());
+    assertEquals("empty", emptySea.getShipType());
+    assertEquals("empty", emptySea.getShipType());
   }
 
   @Test
