@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Ocean {
 
   private int shotsFired;
@@ -16,17 +18,25 @@ public class Ocean {
         ships[row][column] = new EmptySea();
       }
     }
+    this.shotsFired = 0;
+    this.hitCount = 0;
+    this.shipsSunk = 0;
+  }
+
+  public int getShotsFired() {
+    return shotsFired;
+  }
+
+  public int getHitCount() {
+    return hitCount;
+  }
+
+  public int getShipsSunk() {
+    return shipsSunk;
   }
 
   /**
-   * Returns true if the given location contains a ship, false if it does not.
-   */
-  public boolean isOccupied(int row, int column) {
-    return ships[row][column].toString().equals("S");
-  }
-
-  /**
-   *Adds a given ship in the 20X20 array
+   * Adds a given ship in the 20X20 array
    */
   public void setShipArray(Ship[][] ships) {
     this.ships = ships;
@@ -40,5 +50,72 @@ public class Ocean {
    */
   public Ship[][] getShipArray() {
     return ships;
+  }
+
+  /**
+   * Place all ships randomly on the (initially empty) ocean. Large ships are placed before the
+   * small ones to avoid running out of legal spaces to place them.
+   */
+  void placeAllShipsRandomly() {
+    Random random = new Random();
+    //Create new ship objects
+    BattleShip battleShip = new BattleShip();
+    BattleCruiser battleCruiser = new BattleCruiser();
+    Cruiser cruiser = new Cruiser();
+    LightCruiser lightCruiser = new LightCruiser();
+    Destroyer destroyer = new Destroyer();
+    Submarine submarine = new Submarine();
+
+    //List of battle ships to be placed in order
+    Ship[] battleShips = new Ship[]{battleShip, battleCruiser, cruiser, cruiser, lightCruiser,
+        lightCruiser, destroyer, destroyer, destroyer, submarine, submarine, submarine, submarine};
+
+    for (Ship ship : battleShips) {
+      //Keep Searching for space to place the Ship and break when placed.
+      while (true) {
+        int row = random.nextInt(20);
+        int column = random.nextInt(20);
+        boolean isHorizontal = random.nextBoolean();
+        if (ship.okToPlaceShipAt(row, column, isHorizontal, this)) {
+          ship.placeShipAt(row, column, isHorizontal, this);
+          break;
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns true if the given location contains a ship, false if it does not.
+   */
+  public boolean isOccupied(int row, int column) {
+    return ships[row][column].toString().equals("S");
+  }
+
+  /**
+   * Returns true if the given location contains a ”real” ship, still afloat, (not an EmptySea),
+   * false if it does not. In addition, this method updates the number of shots that have been
+   * fired, and the number of hits. Note: If a location contains a ”real” ship, shootAt should
+   * return true every time the user shoots at that same location. Once a ship has been ”sunk”,
+   * additional shots at its location should return false.
+   */
+  boolean shootAt(int row, int column) {
+    if (this.isOccupied(row, column)) {
+      this.hitCount++;
+      this.shotsFired++;
+      ships[row][column].shootAt(row, column);
+      if (ships[row][column].toString().equals("x")) {
+        this.shipsSunk++;
+      }
+      return true;
+    }
+    this.shotsFired++;
+    return false;
+  }
+
+  /**
+   * Returns true if all ships have been sunk, otherwise false.
+   */
+  boolean isGameOver() {
+    return shipsSunk == 13;
   }
 }

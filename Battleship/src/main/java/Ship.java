@@ -88,7 +88,6 @@ public abstract class Ship {
     bowColumn = column;
     this.horizontal = horizontal;
 
-    if (okToPlaceShipAt(row, column, horizontal, ocean)) {
       Ship[][] ships = ocean.getShipArray();
       if (horizontal) {
         for (int c = column; c < column + length; c++) {
@@ -100,7 +99,6 @@ public abstract class Ship {
         }
       }
       ocean.setShipArray(ships);
-    }
   }
 
   /**
