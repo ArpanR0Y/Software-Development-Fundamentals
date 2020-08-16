@@ -18,6 +18,9 @@ public class Ocean {
         ships[row][column] = new EmptySea();
       }
     }
+    this.shotsFired = 0;
+    this.hitCount = 0;
+    this.shipsSunk = 0;
   }
 
   public int getShotsFired() {
