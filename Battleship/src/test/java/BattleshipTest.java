@@ -281,105 +281,105 @@ public class BattleshipTest {
     assertEquals(339, numEmptySeaAfter);
   }
 
-//  @Test
-//  public void testIsOccupied() {
-//    new BattleShip().placeShipAt(2, 3, false, ocean);
-//    new Destroyer().placeShipAt(1, 0, false, ocean);
-//    new Cruiser().placeShipAt(11, 2, true, ocean);
-//    new Submarine().placeShipAt(1, 9, true, ocean);
-//    assertTrue(ocean.isOccupied(1, 9)); // occupied by submarine
-//    assertTrue(ocean.isOccupied(5, 3)); // occupied by battleship
-//    assertTrue(ocean.isOccupied(11, 2)); // occupied by cruiser
-//    assertTrue(ocean.isOccupied(11, 3)); // occupied by cruiser
-//    assertTrue(ocean.isOccupied(11, 4)); // occupied by cruiser
-//    assertTrue(ocean.isOccupied(11, 5));
-//    assertTrue(ocean.isOccupied(11, 6));
-//    assertTrue(ocean.isOccupied(11, 7));
-//    assertFalse(ocean.isOccupied(11, 8));
-//    assertFalse(ocean.isOccupied(0, 0));
-//    assertFalse(ocean.isOccupied(9, 9));
-//    new EmptySea().placeShipAt(9, 9, true, ocean);
-//    assertFalse(ocean.isOccupied(9, 9)); // occupied by empty is not
-//    // really occupied
-//  }
-//
-//  @Test
-//  public void testShootAtOcean() {
-//    new Destroyer().placeShipAt(1, 0, false, ocean);
-//    new Submarine().placeShipAt(1, 9, true, ocean);
-//    assertFalse(ocean.shootAt(0, 0)); // shoot at emptySea
-//    assertTrue(ocean.shootAt(1, 0)); // shoot at destroyer bow
-//    assertEquals(2, ocean.getShotsFired());
-//    assertEquals(1, ocean.getHitCount());
-//    assertTrue(ocean.shootAt(1, 0)); // shoot at destroyer bow
-//    assertEquals(3, ocean.getShotsFired());
-//    assertEquals(ocean.getHitCount(), 2);
-//    assertFalse(ocean.shootAt(0, 0)); // shoot at emptySea
-//    assertEquals(4, ocean.getShotsFired());
-//    assertEquals(2, ocean.getHitCount());
-//    assertTrue(ocean.shootAt(4, 0)); // shoot at destroyer stern
-//    assertEquals(3, ocean.getHitCount());
-//    assertTrue(ocean.shootAt(2, 0));
-//    assertTrue(ocean.shootAt(3, 0));
-//    assertFalse(ocean.shootAt(1, 0)); // shoot at destroyer bow after
+  @Test
+  public void testIsOccupied() {
+    new BattleShip().placeShipAt(2, 3, false, ocean);
+    new Destroyer().placeShipAt(1, 0, false, ocean);
+    new Cruiser().placeShipAt(11, 2, true, ocean);
+    new Submarine().placeShipAt(1, 9, true, ocean);
+    assertTrue(ocean.isOccupied(1, 9)); // occupied by submarine
+    assertTrue(ocean.isOccupied(5, 3)); // occupied by battleship
+    assertTrue(ocean.isOccupied(11, 2)); // occupied by cruiser
+    assertTrue(ocean.isOccupied(11, 3)); // occupied by cruiser
+    assertTrue(ocean.isOccupied(11, 4)); // occupied by cruiser
+    assertTrue(ocean.isOccupied(11, 5));
+    assertTrue(ocean.isOccupied(11, 6));
+    assertTrue(ocean.isOccupied(11, 7));
+    assertFalse(ocean.isOccupied(11, 8));
+    assertFalse(ocean.isOccupied(0, 0));
+    assertFalse(ocean.isOccupied(9, 9));
+    new EmptySea().placeShipAt(9, 9, true, ocean);
+    assertFalse(ocean.isOccupied(9, 9)); // occupied by empty is not
+    // really occupied
+  }
+
+  @Test
+  public void testShootAtOcean() {
+    new Destroyer().placeShipAt(1, 0, false, ocean);
+    new Submarine().placeShipAt(1, 9, true, ocean);
+    assertFalse(ocean.shootAt(0, 0)); // shoot at emptySea
+    assertTrue(ocean.shootAt(1, 0)); // shoot at destroyer bow
+    assertEquals(2, ocean.getShotsFired());
+    assertEquals(1, ocean.getHitCount());
+    assertTrue(ocean.shootAt(1, 0)); // shoot at destroyer bow
+    assertEquals(3, ocean.getShotsFired());
+    assertEquals(ocean.getHitCount(), 2);
+    assertFalse(ocean.shootAt(0, 0)); // shoot at emptySea
+    assertEquals(4, ocean.getShotsFired());
+    assertEquals(2, ocean.getHitCount());
+    assertTrue(ocean.shootAt(4, 0)); // shoot at destroyer stern
+    assertEquals(3, ocean.getHitCount());
+    assertTrue(ocean.shootAt(2, 0));
+    assertTrue(ocean.shootAt(3, 0));
+    assertFalse(ocean.shootAt(1, 0)); // shoot at destroyer bow after
 //    // sink
-//    assertEquals(8, ocean.getShotsFired());
-//    assertEquals(5, ocean.getHitCount());
-//
-//    assertTrue(ocean.shootAt(1, 9)); // shoot at submarine
-//    assertEquals(9, ocean.getShotsFired());
-//    assertEquals(6, ocean.getHitCount());
-//
-//    new EmptySea().placeShipAt(9, 9, true, ocean);
-//    assertFalse(ocean.shootAt(9, 9)); // shoot at empty sea
-//    assertEquals(10, ocean.getShotsFired());
-//    assertEquals(6, ocean.getHitCount());
-//  }
-//
-//  @Test
-//  public void testIsGameOver() {
-//
-//    // place subs
-//    new Submarine().placeShipAt(0, 1, true, ocean);
-//    new Submarine().placeShipAt(16, 1, true, ocean);
-//    new Submarine().placeShipAt(14, 1, true, ocean);
-//    new Submarine().placeShipAt(12, 1, true, ocean);
-//
-//    // place destroyers
-//    new Destroyer().placeShipAt(3, 10, true, ocean);
-//    new Destroyer().placeShipAt(5, 10, true, ocean);
-//    new Destroyer().placeShipAt(7, 10, true, ocean);
-//
-//    // light cruisers
-//    new LightCruiser().placeShipAt(9, 10, true, ocean);
-//    new LightCruiser().placeShipAt(15, 10, true, ocean);
-//
-//    // cruisers
-//    new Cruiser().placeShipAt(17, 13, true, ocean);
-//    new Cruiser().placeShipAt(19, 13, true, ocean);
-//
-//    // battlecruiser
-//    new LightCruiser().placeShipAt(0, 19, false, ocean);
-//
-//    // battleship
-//    new BattleShip().placeShipAt(2, 3, false, ocean);
-//
-//    // Shoot through the first 10 rows
-//    assertFalse(ocean.isGameOver());
-//    for (int i = 0; i < 10; i++) {
-//      for (int j = 0; j < 20; j++) {
-//        ocean.shootAt(i, j);
-//      }
-//    }
-//    // Shoot through the rest 10 rows
-//    assertFalse(ocean.isGameOver());
-//    for (int i = 10; i < 20; i++) {
-//      for (int j = 0; j < 20; j++) {
-//        ocean.shootAt(i, j);
-//      }
-//    }
-//
-//    assertTrue(ocean.isGameOver());
+    assertEquals(8, ocean.getShotsFired());
+    assertEquals(5, ocean.getHitCount());
+
+    assertTrue(ocean.shootAt(1, 9)); // shoot at submarine
+    assertEquals(9, ocean.getShotsFired());
+    assertEquals(6, ocean.getHitCount());
+
+    new EmptySea().placeShipAt(9, 9, true, ocean);
+    assertFalse(ocean.shootAt(9, 9)); // shoot at empty sea
+    assertEquals(10, ocean.getShotsFired());
+    assertEquals(6, ocean.getHitCount());
+  }
+
+  @Test
+  public void testIsGameOver() {
+
+    // place subs
+    new Submarine().placeShipAt(0, 1, true, ocean);
+    new Submarine().placeShipAt(16, 1, true, ocean);
+    new Submarine().placeShipAt(14, 1, true, ocean);
+    new Submarine().placeShipAt(12, 1, true, ocean);
+
+    // place destroyers
+    new Destroyer().placeShipAt(3, 10, true, ocean);
+    new Destroyer().placeShipAt(5, 10, true, ocean);
+    new Destroyer().placeShipAt(7, 10, true, ocean);
+
+    // light cruisers
+    new LightCruiser().placeShipAt(9, 10, true, ocean);
+    new LightCruiser().placeShipAt(15, 10, true, ocean);
+
+    // cruisers
+    new Cruiser().placeShipAt(17, 13, true, ocean);
+    new Cruiser().placeShipAt(19, 13, true, ocean);
+
+    // battlecruiser
+    new LightCruiser().placeShipAt(0, 19, false, ocean);
+
+    // battleship
+    new BattleShip().placeShipAt(2, 3, false, ocean);
+
+    // Shoot through the first 10 rows
+    assertFalse(ocean.isGameOver());
+    for (int i = 0; i < 10; i++) {
+      for (int j = 0; j < 20; j++) {
+        ocean.shootAt(i, j);
+      }
+    }
+    // Shoot through the rest 10 rows
+    assertFalse(ocean.isGameOver());
+    for (int i = 10; i < 20; i++) {
+      for (int j = 0; j < 20; j++) {
+        ocean.shootAt(i, j);
+      }
+    }
+
+    assertTrue(ocean.isGameOver());
 
   }
-//}
+}

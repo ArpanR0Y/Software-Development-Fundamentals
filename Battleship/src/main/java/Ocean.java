@@ -33,6 +33,23 @@ public class Ocean {
   }
 
   /**
+   * Adds a given ship in the 20X20 array
+   */
+  public void setShipArray(Ship[][] ships) {
+    this.ships = ships;
+  }
+
+  /**
+   * Returns the 20x20 array of ships. The methods in the Ship class that take an Ocean parameter
+   * really need to be able to look at the contents of this array; the placeShipAt method even needs
+   * to modify it. While it is undesirable to allow methods in one class to directly access instance
+   * variables in another class, sometimes there is just no good alternative.
+   */
+  public Ship[][] getShipArray() {
+    return ships;
+  }
+
+  /**
    * Place all ships randomly on the (initially empty) ocean. Large ships are placed before the
    * small ones to avoid running out of legal spaces to place them.
    */
@@ -72,19 +89,30 @@ public class Ocean {
   }
 
   /**
-   * Adds a given ship in the 20X20 array
+   * Returns true if the given location contains a ”real” ship, still afloat, (not an EmptySea),
+   * false if it does not. In addition, this method updates the number of shots that have been
+   * fired, and the number of hits. Note: If a location contains a ”real” ship, shootAt should
+   * return true every time the user shoots at that same location. Once a ship has been ”sunk”,
+   * additional shots at its location should return false.
    */
-  public void setShipArray(Ship[][] ships) {
-    this.ships = ships;
+  boolean shootAt(int row, int column) {
+    if (this.isOccupied(row, column)) {
+      this.hitCount++;
+      this.shotsFired++;
+      ships[row][column].shootAt(row, column);
+      if (ships[row][column].toString().equals("x")) {
+        this.shipsSunk++;
+      }
+      return true;
+    }
+    this.shotsFired++;
+    return false;
   }
 
   /**
-   * Returns the 20x20 array of ships. The methods in the Ship class that take an Ocean parameter
-   * really need to be able to look at the contents of this array; the placeShipAt method even needs
-   * to modify it. While it is undesirable to allow methods in one class to directly access instance
-   * variables in another class, sometimes there is just no good alternative.
+   * Returns true if all ships have been sunk, otherwise false.
    */
-  public Ship[][] getShipArray() {
-    return ships;
+  boolean isGameOver() {
+    return shipsSunk == 13;
   }
 }
