@@ -169,123 +169,118 @@ public class BattleshipTest {
     assertFalse(submarine.isSunk());
   }
 
-//  @Test
-//  public void testToString() {
-//    battleship.placeShipAt(2, 3, false, ocean1);
-//    battleship.shootAt(2, 3);
-//    assertEquals(".", ocean1.getShipArray()[9][9].toString());
-//    ocean1.getShipArray()[9][9].shootAt(9, 9);
-//    assertEquals("-", ocean1.getShipArray()[9][9].toString());
-//    assertEquals("S", battleship.toString());
-//    battleship.shootAt(3, 3);
-//    battleship.shootAt(4, 3);
-//    assertEquals("S", battleship.toString());
-//    battleship.shootAt(5, 3);
-//    battleship.shootAt(6, 3);
-//    battleship.shootAt(7, 3);
-//    battleship.shootAt(8, 3);
-//    battleship.shootAt(9, 3);
-//    assertEquals("x", battleship.toString());
-//  }
+  @Test
+  public void testToString() {
+    battleship.placeShipAt(2, 3, false, ocean1);
+    battleship.shootAt(2, 3);
+    assertEquals(".", ocean1.getShipArray()[9][9].toString());
+    ocean1.getShipArray()[9][9].shootAt(9, 9);
+    assertEquals("-", ocean1.getShipArray()[9][9].toString());
+    assertEquals("S", battleship.toString());
+    battleship.shootAt(3, 3);
+    battleship.shootAt(4, 3);
+    assertEquals("S", battleship.toString());
+    battleship.shootAt(5, 3);
+    battleship.shootAt(6, 3);
+    battleship.shootAt(7, 3);
+    battleship.shootAt(8, 3);
+    battleship.shootAt(9, 3);
+    assertEquals("x", battleship.toString());
+  }
 
-//  @Test
-//  public void testShipSubclasses() {
-//
-//    BattleShip battleship = new BattleShip();
-//    assertEquals(8, battleship.getLength());
-//    assertEquals("battleship", battleship.getShipType());
-//    assertEquals(8, battleship.getHit().length);
-//
-//    Cruiser cruiser = new Cruiser();
-//    assertEquals(6, cruiser.getLength());
-//    assertEquals("cruiser", cruiser.getShipType());
-//    // assertEquals(6, cruiser.getHit().length);
-//
-//    Destroyer destroyer = new Destroyer();
-//    assertEquals(4, destroyer.getLength());
-//    assertEquals("destroyer", destroyer.getShipType());
-//    // assertEquals(4, destroyer.getHit().length);
-//
-//    Submarine submarine = new Submarine();
-//    assertEquals(3, submarine.getLength());
-//    assertEquals("submarine", submarine.getShipType());
-//    // assertEquals(3, submarine.getHit().length);
-//
-//    EmptySea emptySea = new EmptySea();
-//    assertEquals(1, emptySea.getLength());
-//    assertEquals("empty", emptySea.getShipType());
-//    // assertEquals(1, emptySea.getHit().length);
-//    assertFalse(emptySea.isSunk());
-//
-//  }
-//
-//  @Test
-//  public void testOcean() {
-//    assertTrue("checking that the ocean variable is an instance of the Ocean class ",
-//        ocean instanceof Ocean);
-//    assertEquals("The top left corner was expected to be empty ",
-//        ocean.getShipArray()[0][0].getShipType(),
-//        "empty");
-//    assertEquals("The bottom right corner was expect to be empty ",
-//        ocean.getShipArray()[19][19].getShipType(),
-//        "empty");
-//    assertEquals("The hit count to begin with was not 0 ", 0, ocean.getHitCount());
-//    assertEquals("The num of ships sunk to begin with was not 0", 0, ocean.getShipsSunk());
-//    assertEquals("The num of shots fired to begin with was not 0 ", 0, ocean.getShotsFired());
-//    assertEquals("The num of rows is not 20 ", 20, ocean.getShipArray().length);
-//    assertEquals("The num of cols is not 20 ", 20, ocean.getShipArray()[0].length);
-//  }
-//
-//  @Test
-//  public void testPlaceAllShipsRandomly() {
-//    int numEmptySeaBefore = 0;
-//    int numBattleship = 0;
-//    int numCruiser = 0;
-//    int numDestroyer = 0;
-//    int numSubmarine = 0;
-//    int numEmptySeaAfter = 0;
-//
-//    for (int i = 0; i < 20; i++) {
-//      for (int j = 0; j < 20; j++) {
-//        if (ocean.getShipArray()[i][j].getShipType().equals("empty")) {
-//          numEmptySeaBefore = numEmptySeaBefore + 1;
-//        }
-//      }
-//    }
-//    assertEquals(400, numEmptySeaBefore);
-//
-//    ocean.placeAllShipsRandomly();
-//
-//    for (int i = 0; i < 20; i++) {
-//      for (int j = 0; j < 20; j++) {
-//        switch (ocean.getShipArray()[i][j].getShipType()) {
-//          case "battleship":
-//            numBattleship = numBattleship + 1;
-//            break;
-//          case "cruiser":
-//            numCruiser = numCruiser + 1;
-//            break;
-//          case "destroyer":
-//            numDestroyer = numDestroyer + 1;
-//            break;
-//          case "submarine":
-//            numSubmarine = numSubmarine + 1;
-//            break;
-//          case "empty":
-//            numEmptySeaAfter = numEmptySeaAfter + 1;
-//            break;
-//          default:
-//            break;
-//        }
-//      }
-//    }
-//    assertEquals(8, numBattleship);
-//    assertEquals(12, numCruiser);
-//    assertEquals(12, numDestroyer);
-//    assertEquals(12, numSubmarine);
-//    assertEquals(339, numEmptySeaAfter);
-//  }
-//
+  @Test
+  public void testShipSubclasses() {
+
+    BattleShip battleship = new BattleShip();
+    assertEquals(8, battleship.getLength());
+    assertEquals("battleship", battleship.getShipType());
+    assertEquals(8, battleship.getHit().length);
+
+    Cruiser cruiser = new Cruiser();
+    assertEquals(6, cruiser.getLength());
+    assertEquals("cruiser", cruiser.getShipType());
+
+    Destroyer destroyer = new Destroyer();
+    assertEquals(4, destroyer.getLength());
+    assertEquals("destroyer", destroyer.getShipType());
+
+    Submarine submarine = new Submarine();
+    assertEquals(3, submarine.getLength());
+    assertEquals("submarine", submarine.getShipType());
+
+    EmptySea emptySea = new EmptySea();
+    assertEquals(1, emptySea.getLength());
+    assertEquals("empty", emptySea.getShipType());
+    assertFalse(emptySea.isSunk());
+
+  }
+
+  @Test
+  public void testOcean() {
+    assertNotNull("checking that the ocean variable is an instance of the Ocean class ", ocean);
+    assertEquals("The top left corner was expected to be empty ",
+        ocean.getShipArray()[0][0].getShipType(),
+        "empty");
+    assertEquals("The bottom right corner was expect to be empty ",
+        ocean.getShipArray()[19][19].getShipType(),
+        "empty");
+    assertEquals("The hit count to begin with was not 0 ", 0, ocean.getHitCount());
+    assertEquals("The num of ships sunk to begin with was not 0", 0, ocean.getShipsSunk());
+    assertEquals("The num of shots fired to begin with was not 0 ", 0, ocean.getShotsFired());
+    assertEquals("The num of rows is not 20 ", 20, ocean.getShipArray().length);
+    assertEquals("The num of cols is not 20 ", 20, ocean.getShipArray()[0].length);
+  }
+
+  @Test
+  public void testPlaceAllShipsRandomly() {
+    int numEmptySeaBefore = 0;
+    int numBattleship = 0;
+    int numCruiser = 0;
+    int numDestroyer = 0;
+    int numSubmarine = 0;
+    int numEmptySeaAfter = 0;
+
+    for (int i = 0; i < 20; i++) {
+      for (int j = 0; j < 20; j++) {
+        if (ocean.getShipArray()[i][j].getShipType().equals("empty")) {
+          numEmptySeaBefore = numEmptySeaBefore + 1;
+        }
+      }
+    }
+    assertEquals(400, numEmptySeaBefore);
+
+    ocean.placeAllShipsRandomly();
+
+    for (int i = 0; i < 20; i++) {
+      for (int j = 0; j < 20; j++) {
+        switch (ocean.getShipArray()[i][j].getShipType()) {
+          case "battleship":
+            numBattleship = numBattleship + 1;
+            break;
+          case "cruiser":
+            numCruiser = numCruiser + 1;
+            break;
+          case "destroyer":
+            numDestroyer = numDestroyer + 1;
+            break;
+          case "submarine":
+            numSubmarine = numSubmarine + 1;
+            break;
+          case "empty":
+            numEmptySeaAfter = numEmptySeaAfter + 1;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    assertEquals(8, numBattleship);
+    assertEquals(12, numCruiser);
+    assertEquals(12, numDestroyer);
+    assertEquals(12, numSubmarine);
+    assertEquals(339, numEmptySeaAfter);
+  }
+
 //  @Test
 //  public void testIsOccupied() {
 //    new BattleShip().placeShipAt(2, 3, false, ocean);

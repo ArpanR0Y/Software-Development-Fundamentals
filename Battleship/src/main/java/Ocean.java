@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Ocean {
 
   private int shotsFired;
@@ -18,6 +20,50 @@ public class Ocean {
     }
   }
 
+  public int getShotsFired() {
+    return shotsFired;
+  }
+
+  public int getHitCount() {
+    return hitCount;
+  }
+
+  public int getShipsSunk() {
+    return shipsSunk;
+  }
+
+  /**
+   * Place all ships randomly on the (initially empty) ocean. Large ships are placed before the
+   * small ones to avoid running out of legal spaces to place them.
+   */
+  void placeAllShipsRandomly() {
+    Random random = new Random();
+    //Create new ship objects
+    BattleShip battleShip = new BattleShip();
+    BattleCruiser battleCruiser = new BattleCruiser();
+    Cruiser cruiser = new Cruiser();
+    LightCruiser lightCruiser = new LightCruiser();
+    Destroyer destroyer = new Destroyer();
+    Submarine submarine = new Submarine();
+
+    //List of battle ships to be placed in order
+    Ship[] battleShips = new Ship[]{battleShip, battleCruiser, cruiser, cruiser, lightCruiser,
+        lightCruiser, destroyer, destroyer, destroyer, submarine, submarine, submarine, submarine};
+
+    for (Ship ship : battleShips) {
+      //Keep Searching for space to place the Ship and break when placed.
+      while (true) {
+        int row = random.nextInt(20);
+        int column = random.nextInt(20);
+        boolean isHorizontal = random.nextBoolean();
+        if (ship.okToPlaceShipAt(row, column, isHorizontal, this)) {
+          ship.placeShipAt(row, column, isHorizontal, this);
+          break;
+        }
+      }
+    }
+  }
+
   /**
    * Returns true if the given location contains a ship, false if it does not.
    */
@@ -26,7 +72,7 @@ public class Ocean {
   }
 
   /**
-   *Adds a given ship in the 20X20 array
+   * Adds a given ship in the 20X20 array
    */
   public void setShipArray(Ship[][] ships) {
     this.ships = ships;
