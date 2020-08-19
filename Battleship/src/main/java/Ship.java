@@ -106,20 +106,28 @@ public abstract class Ship {
    * that part of the ship as ”hit” (in the hit array, 0 indicates the bow) and return true,
    * otherwise return false.
    */
-  boolean shootAt(int row, int column) {
-    try {
-      //get the distance between bow and hit location; D = sqrt((x2 - x1)^2 + (y2 - y1)^2)
-      int hitLocation = (int) Math.sqrt(Math.pow((row - this.bowRow), 2) +
-          Math.pow((column - this.bowColumn), 2));
-
-      if (!this.isSunk()) {
-        this.hit[hitLocation] = true;
-        return true;
+  public boolean shootAt(int row, int column) {
+    if (!isSunk()) {
+      if (horizontal) {
+        if (row == this.bowRow && column < this.bowColumn + length) {
+          hit[column - this.bowColumn] = true;
+          return true;
+        }
       } else {
-        return false;
+        if (column == this.bowColumn && row < this.bowRow + length) {
+          hit[row - this.bowRow] = true;
+          return true;
+        }
       }
-    } catch (ArrayIndexOutOfBoundsException e) {
-      return false;
+    }
+    return false;
+  }
+
+  public boolean wasShootAt(int row, int column) {
+    if (horizontal) {
+      return this.hit[column - this.bowColumn];
+    } else {
+      return this.hit[row - this.bowRow];
     }
   }
 
@@ -127,7 +135,7 @@ public abstract class Ship {
    * Return true if every part of the ship has been hit, false otherwise.
    */
   boolean isSunk() {
-    for (boolean isHit : hit) {
+    for (boolean isHit : this.hit) {
       if (!isHit) {
         return false;
       }
