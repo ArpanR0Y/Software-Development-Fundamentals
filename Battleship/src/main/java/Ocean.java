@@ -13,9 +13,10 @@ public class Ocean {
    * instances).
    */
   public Ocean() {
-    for (int row = 0; row < 20; row++) {
-      for (int column = 0; column < 20; column++) {
-        ships[row][column] = new EmptySea();
+    for (int i = 0; i < 20; i++) {
+      for (int j = 0; j < 20; j++) {
+        EmptySea emptySea = new EmptySea();
+        emptySea.placeShipAt(i, j, true, this);
       }
     }
     this.shotsFired = 0;
@@ -56,28 +57,32 @@ public class Ocean {
    * Place all ships randomly on the (initially empty) ocean. Large ships are placed before the
    * small ones to avoid running out of legal spaces to place them.
    */
-  void placeAllShipsRandomly() {
+  public void placeAllShipsRandomly() {
     Random random = new Random();
-    //Create new ship objects
-    BattleShip battleShip = new BattleShip();
-    BattleCruiser battleCruiser = new BattleCruiser();
-    Cruiser cruiser = new Cruiser();
-    LightCruiser lightCruiser = new LightCruiser();
-    Destroyer destroyer = new Destroyer();
-    Submarine submarine = new Submarine();
+    Ship[] ships = new Ship[13];
+    for (int i = 0; i < 13; i++) {
+      if (i == 0) {
+        ships[i] = new BattleShip();
+      } else if (i == 1) {
+        ships[i] = new BattleCruiser();
+      } else if (i < 4) {
+        ships[i] = new Cruiser();
+      } else if (i < 6) {
+        ships[i] = new LightCruiser();
+      } else if (i < 9) {
+        ships[i] = new Destroyer();
+      } else if (i < 13) {
+        ships[i] = new Submarine();
+      }
+    }
 
-    //List of battle ships to be placed in order
-    Ship[] battleShips = new Ship[]{battleShip, battleCruiser, cruiser, cruiser, lightCruiser,
-        lightCruiser, destroyer, destroyer, destroyer, submarine, submarine, submarine, submarine};
-
-    for (Ship ship : battleShips) {
-      //Keep Searching for space to place the Ship and break when placed.
+    for (Ship ship : ships) {
       while (true) {
         int row = random.nextInt(20);
         int column = random.nextInt(20);
-        boolean isHorizontal = random.nextBoolean();
-        if (ship.okToPlaceShipAt(row, column, isHorizontal, this)) {
-          ship.placeShipAt(row, column, isHorizontal, this);
+        boolean horizontal = random.nextBoolean();
+        if (ship.okToPlaceShipAt(row, column, horizontal, this)) {
+          ship.placeShipAt(row, column, horizontal, this);
           break;
         }
       }
@@ -94,11 +99,11 @@ public class Ocean {
   /**
    * Returns true if the given location contains a ”real” ship, still afloat, (not an EmptySea),
    * false if it does not. In addition, this method updates the number of shots that have been
-   * fired, and the number of hits. Note: If a location contains a ”real” ship, shootAt should
-   * return true every time the user shoots at that same location. Once a ship has been ”sunk”,
-   * additional shots at its location should return false.
+   * fired, the number of hits and shipsSunk. Note: If a location contains a ”real” ship, shootAt
+   * should return true every time the user shoots at that same location. Once a ship has been
+   * ”sunk”, additional shots at its location should return false.
    */
-  boolean shootAt(int row, int column) {
+  public boolean shootAt(int row, int column) {
     if (this.isOccupied(row, column)) {
       this.hitCount++;
       this.shotsFired++;
@@ -109,13 +114,55 @@ public class Ocean {
       return true;
     }
     this.shotsFired++;
-    return false;
+    return ships[row][column].shootAt(row, column); // when shot at an empty sea, returns false.
   }
 
   /**
    * Returns true if all ships have been sunk, otherwise false.
    */
-  boolean isGameOver() {
+  public boolean isGameOver() {
     return shipsSunk == 13;
+  }
+
+  /**
+   * Prints the ocean. To aid the user, row numbers should be displayed along the left edge of the
+   * array, and column numbers should be displayed along the top. Numbers should be 00 to 19, not 1
+   * to 20.
+   * <p>
+   * The top left corner square should be 0, 0.
+   * <p>
+   * Use ’S’ to indicate a location that you have fired upon and hit a (real) ship, ’-’ to indicate
+   * a location that you have fired upon and found nothing there, ’x’ to indicate a location
+   * containing a sunken ship,
+   * <p>
+   * and ’.’ (a period) to indicate a location that you have never fired upon.
+   */
+  public void print() {
+    System.out.println(toString());
+  }
+
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(" ");
+    for (int i = 0; i < 20; i++) {
+      sb.append(String.format("%3d", i));
+    }
+    sb.append("\n");
+
+    for (int i = 0; i < 20; i++) {
+      sb.append(String.format("%2d ", i));
+      for (int j = 0; j < 20; j++) {
+
+        if (!ships[i][j].wasShootAt(i, j)) { // never been fired
+          sb.append(".");
+        } else {
+          sb.append(ships[i][j].toString());
+        }
+
+        sb.append("  ");
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
   }
 }
