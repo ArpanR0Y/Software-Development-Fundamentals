@@ -153,7 +153,7 @@ public class Ocean {
       sb.append(String.format("%2d ", i));
       for (int j = 0; j < 20; j++) {
 
-        if (!ships[i][j].wasShootAt(i, j)) { // never been fired
+        if (!ships[i][j].wasShotAt(i, j)) { // never been fired
           sb.append(".");
         } else {
           sb.append(ships[i][j].toString());
