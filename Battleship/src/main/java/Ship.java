@@ -123,7 +123,7 @@ public abstract class Ship {
     return false;
   }
 
-  public boolean wasShootAt(int row, int column) {
+  public boolean wasShotAt(int row, int column) {
     if (horizontal) {
       return this.hit[column - this.bowColumn];
     } else {

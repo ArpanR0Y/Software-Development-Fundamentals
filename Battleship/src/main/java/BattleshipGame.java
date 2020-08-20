@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class BattleshipGame {
 
   /**
@@ -22,6 +24,30 @@ public class BattleshipGame {
    * sensible parts with reasonable names.
    */
   public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
+    Ocean ocean = new Ocean();
+
+    ocean.placeAllShipsRandomly();
+
+    do {
+      System.out.println("Shots Fired: " + ocean.getShotsFired());
+      System.out.println("Hit Count: " + ocean.getHitCount());
+      System.out.println("Ships Sunk: " + ocean.getShipsSunk());
+
+      ocean.print();
+
+      System.out.println("Enter the shots: ");
+      String input = scanner.nextLine();
+
+      String[] inputArray = input.split("\\D\\W");
+      for (int i = 0; i < inputArray.length; i += 2) {
+        int x = Integer.parseInt(inputArray[i].trim());
+        int y = Integer.parseInt(inputArray[i + 1].trim());
+        ocean.shootAt(x, y);
+      }
+
+    } while (!ocean.isGameOver());
 
   }
 }
