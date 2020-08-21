@@ -1,6 +1,6 @@
 # Software-Development-Fundamentals
 
-This course, part of the CS Essentials for Software Development Professional Certificate program, covered Java syntax and keywords and along side exploring the features of object-oriented programming including encapsulation, inheritance, and polymorphism. . I learned how to apply these concepts to programmatic solve problems by investigating class modeling techniques and relationships such as aggregation, realization, and generalization.
+This course, part of the CS Essentials for Software Development Professional Certificate program, covered Java syntax and keywords and along side exploring the features of object-oriented programming including encapsulation, inheritance, and polymorphism. I learned how to apply these concepts to programmatic solve problems by investigating class modeling techniques and relationships such as aggregation, realization, and generalization.
 
 In addition to programming, I learned and practiced the following: 
 
